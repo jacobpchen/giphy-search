@@ -48,7 +48,7 @@ class Trending extends React.Component {
     render() {
         return (
             <div className="back">
-                <div className="trending m-3">
+                <div className="trending mb-3 mx-3">
                     <div className="d-flex flex-column justify-content-center align-items-center">
                         <button type="button"
                             className="btn btn-dark m-3"
