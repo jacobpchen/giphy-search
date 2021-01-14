@@ -24,21 +24,14 @@ class Trending extends React.Component {
                 })
             }).catch(err => console.log(err))
     }
-
-    handleRandomButton = (e) => {
-        console.log("button worked")
-        console.log("Before")
-
-        axios.get('https://api.giphy.com/v1/gifs/random?api_key=rdUagZZZB6SBGDtOIGrzFOVBiDLCc94P&tag=&rating=g')
-            .then(response => {
-                let apiResponse = response.data
-                this.setState({
-                    randomGif: apiResponse,
-                })
-                console.log("After")
-                console.log(this.state.randomGif)
-            })
-    }
+    /* 
+        handleRandom = (event) => {
+            event.preventDefault()
+            this.setState(random => ({
+                url: `https://api.giphy.com/v1/gifs/random?api_key=rdUagZZZB6SBGDtOIGrzFOVBiDLCc94P&tag=&rating=g`
+            }))
+            console.log(this.state.url)
+        } */
 
     handleSearch = (event) => {
         event.preventDefault()
@@ -64,20 +57,20 @@ class Trending extends React.Component {
         return (
             <div className="back">
                 <div className="container d-flex flex-column align-items-center justify-content-center">
+                    {/* <button onClick={this.handleRandom}>Random</button> */}
                     <form className="my-3">
                         Search For Any Gif<br />
                         <input className="mr-3" type="text" name="query" onChange={this.handleChange} />
                         <button onClick={this.handleSearch}>Search</button>
+                        <div className="d-flex flex-wrap">
+                            {this.state.data.map(data =>
+                                <div key={data.id} className="gif">
+                                    <GifCard
+                                        image={data.images.fixed_height.url} />
+                                </div>
+                            )}
+                        </div>
                     </form>
-
-                    <div className="d-flex flex-wrap">
-                        {this.state.data.map(data =>
-                            <div key={data.id} className="gif">
-                                <GifCard
-                                    image={data.images.fixed_height.url} />
-                            </div>
-                        )}
-                    </div>
                 </div>
             </div>
         )
