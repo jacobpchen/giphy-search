@@ -2,28 +2,29 @@ import React from 'react'
 import axios from "axios"
 import GifCard from './GifCard'
 import "./SearchGif.css";
+import SearchGif from './SearchGif'
 
 class Trending extends React.Component {
     constructor() {
         super()
         this.state = {
-            trendingUrl: [],
-            key: '',
-            randomGif: [],
+            data: [],
+            searchWord: ' ',
             url: 'https://api.giphy.com/v1/gifs/trending?api_key=rdUagZZZB6SBGDtOIGrzFOVBiDLCc94P'
         }
     }
 
     // on mount do an API call to get the trending gifs and load it.
     componentDidMount() {
-        axios.get('https://api.giphy.com/v1/gifs/trending?api_key=rdUagZZZB6SBGDtOIGrzFOVBiDLCc94P&limit=25&rating=g')
+        axios.get(this.state.url)
             .then(response => {
-                let apiResponse = response.data
-                apiResponse = Array.from(apiResponse.data)
+                let apiResponse = response.data.data
+                console.log(apiResponse)
+                /* apiResponse = Array.from(apiResponse.data) */
                 this.setState({
-                    trendingUrl: apiResponse
+                    data: apiResponse
                 })
-            })
+            }).catch(err => console.log(err))
     }
 
     handleRandomButton = (e) => {
@@ -41,37 +42,45 @@ class Trending extends React.Component {
             })
     }
 
+    handleSearch = (event) => {
+        event.preventDefault()
+        this.setState(search => ({
+            url: `http://api.giphy.com/v1/gifs/search?api_key=rdUagZZZB6SBGDtOIGrzFOVBiDLCc94P&q=${search.searchWord}`
+        })
+        )
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            searchWord: event.target.value
+        })
+    }
+
     componentDidUpdate(prevProp, prevState) {
-        console.log("Printing from update")
+        if (prevState.url !== this.state.url) {
+            this.componentDidMount()
+        }
     }
 
     render() {
         return (
             <div className="back">
-                <div className="trending mb-3 mx-3">
-                    <div className="d-flex flex-column justify-content-center align-items-center">
-                        <button type="button"
-                            className="btn btn-dark m-3"
-                            onClick={(e) => this.handleRandomButton(e)}>
-                            Random Gif</button>
-                        {/* I want to hide this component unless it refreshes} */}
-                        <GifCard
-                            image={this.state.randomGif}
-                        />
-                    </div>
+                <div className="container">
 
-                    {/* I want to show this on first load but if a 
-                user hits random or if they search then I want to hide the trending gifs*/}
-                    <h3 className="text-center p-5">Trending GIFs</h3>
-                    <div className="trending container d-flex flex-wrap justify-content-around">
-                        {this.state.trendingUrl.map(index =>
-                            <div key={index.id}
-                                className="p-2" >
-                                <img src={index.images.fixed_height.url}></img>
+                    <form>
+                        Search For Any Gif<br />
+                        <input type="text" name="query" onChange={this.handleChange} />
+                    </form>
+                    <button onClick={this.handleSearch}>Search</button>
+
+                    <div className="d-flex flex-wrap">
+                        {this.state.data.map(data =>
+                            <div key={data.id} className="gif">
+                                <GifCard
+                                    image={data.images.fixed_height.url} />
                             </div>
                         )}
                     </div>
-
                 </div>
             </div>
         )
