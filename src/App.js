@@ -1,6 +1,6 @@
 import React from "react"
 import './App.css'
-import SearchGif from "./components/SearchGif"
+
 import Trending from "./components/Trending"
 
 

@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from "axios"
 import GifCard from './GifCard'
-import "./SearchGif.css";
-import SearchGif from './SearchGif'
 
 class Trending extends React.Component {
     constructor() {
@@ -65,13 +63,12 @@ class Trending extends React.Component {
     render() {
         return (
             <div className="back">
-                <div className="container">
-
-                    <form>
+                <div className="container d-flex flex-column align-items-center justify-content-center">
+                    <form className="my-3">
                         Search For Any Gif<br />
-                        <input type="text" name="query" onChange={this.handleChange} />
+                        <input className="mr-3" type="text" name="query" onChange={this.handleChange} />
+                        <button onClick={this.handleSearch}>Search</button>
                     </form>
-                    <button onClick={this.handleSearch}>Search</button>
 
                     <div className="d-flex flex-wrap">
                         {this.state.data.map(data =>
