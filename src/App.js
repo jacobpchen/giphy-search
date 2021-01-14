@@ -2,6 +2,7 @@ import React from "react"
 import './App.css'
 import Trending from "./components/Trending"
 
+
 class Giphy extends React.Component {
   render() {
     return (
