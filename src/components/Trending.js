@@ -17,20 +17,28 @@ class Trending extends React.Component {
         axios.get(this.state.url)
             .then(response => {
                 let apiResponse = response.data.data
-                console.log(apiResponse)
+
+                apiResponse = Array.from(apiResponse)
                 /* apiResponse = Array.from(apiResponse.data) */
                 this.setState({
                     data: apiResponse
                 })
             }).catch(err => console.log(err))
     }
-    /* 
-        handleRandom = (event) => {
+
+    /*     handleRandom = (event) => {
             event.preventDefault()
             this.setState(random => ({
                 url: `https://api.giphy.com/v1/gifs/random?api_key=rdUagZZZB6SBGDtOIGrzFOVBiDLCc94P&tag=&rating=g`
             }))
+            console.log("Printing this.state.url")
             console.log(this.state.url)
+            console.log(typeof this.state.url)
+            {
+                <GifCard
+                    image={this.state.url.data.images.fixed_height.url}
+                />
+            }
         } */
 
     handleSearch = (event) => {
