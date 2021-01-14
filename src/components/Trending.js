@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from "axios"
 import GifCard from './GifCard'
+import "./SearchGif.css";
 
 class Trending extends React.Component {
     constructor() {
@@ -46,33 +47,33 @@ class Trending extends React.Component {
 
     render() {
         return (
+            <div className="back">
+                <div className="trending m-3">
+                    <div className="d-flex flex-column justify-content-center align-items-center">
+                        <button type="button"
+                            className="btn btn-dark m-3"
+                            onClick={(e) => this.handleRandomButton(e)}>
+                            Random Gif</button>
+                        {/* I want to hide this component unless it refreshes} */}
+                        <GifCard
+                            image={this.state.randomGif}
+                        />
+                    </div>
 
-            <div className="trending">
-                <div className="d-flex justify-content-center align-items-center">
-                    <button type="button"
-                        className="btn btn-primary"
-                        onClick={(e) => this.handleRandomButton(e)}>
-                        Random Gif</button>
-                </div>
+                    {/* I want to show this on first load but if a 
+                user hits random or if they search then I want to hide the trending gifs*/}
+                    <h3 className="text-center p-5">Trending GIFs</h3>
+                    <div className="trending container d-flex flex-wrap justify-content-around">
+                        {this.state.trendingUrl.map(index =>
+                            <div key={index.id}
+                                className="p-2" >
+                                <img src={index.images.fixed_height.url}></img>
+                            </div>
+                        )}
+                    </div>
 
-                {<div className="random">
-                    {console.log("Printing from return")}
-                    <GifCard
-                        image={this.state.randomGif}
-                    />
-                </div>}
-
-                <h3 className="text-center p-5">Trending GIFs</h3>
-                <div className="trending container d-flex flex-wrap align-items-center">
-                    {this.state.trendingUrl.map(index =>
-                        <div key={index.id}
-                            className="p-2" >
-                            <img src={index.images.fixed_height.url}></img>
-                        </div>
-                    )}
                 </div>
             </div>
-
         )
     }
 }

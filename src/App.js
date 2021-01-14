@@ -9,8 +9,8 @@ class Giphy extends React.Component {
     return (
       <div>
         <h2 className="header py-5 text-center m-0">Gif Search</h2>
-        {/* <Trending /> */}
-        <SearchGif />
+        <Trending />
+        {/* <SearchGif /> */}
       </div>
     )
   }
