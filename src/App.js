@@ -3,6 +3,7 @@ import './App.css'
 import SearchGif from "./components/SearchGif"
 import Trending from "./components/Trending"
 
+
 class Giphy extends React.Component {
   render() {
     return (
