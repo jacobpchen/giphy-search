@@ -1,0 +1,17 @@
+.gif-border{
+    display: inline-block;
+    border-style: hidden;
+    padding-top: 5px ;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.gif-size{
+    width: 150px;
+    height: 150px;
+}
+
+.back{
+    background-color:bisque;
+}
