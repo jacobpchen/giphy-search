@@ -21,15 +21,15 @@ class SearchGif extends Component {
           let dataRes = response.data.data
           console.log(dataRes)
           this.setState({ gifs: dataRes }, this.printSearchGifs)
-      })
-      .catch((err) => console.log(err)) 
+        })
+      .catch((err) => console.log(err))
   }
 
   printSearchGifs = () => {
     let output = []
     output = this.state.gifs.map(gvalue =>
       <div className="gif-border" >
-        <img className = "gif-size" src={gvalue.images.original.url} />
+        <img className="gif-size" src={gvalue.images.original.url} />
       </div>)
 
     let print = document.getElementsByClassName("results-output")[0]
@@ -39,24 +39,24 @@ class SearchGif extends Component {
   render() {
     return (
       <>
-      <div className = "back"> 
-        <div>
-          <label >Search: </label>
-          <input className="search-prompt-line" type = "text" 
-          onChange={(event) => this.setState({ searchInput: event.target.value },)}
-          placeholder={this.state.searchInput}/>
+        <div className="back m-0">
+          <div className="container p-3 d-flex flex-wrap justify-content-center align-items-center">
+            <div>
+              <label >Search: </label>
+              <input className="search-prompt-line mx-3" type="text"
+                onChange={(event) => this.setState({ searchInput: event.target.value },)}
+                placeholder={this.state.searchInput} />
 
-          <button className="button-search"
-          onClick={() => {this.setGif()}}>
-            Go
+              <button className="button-search"
+                onClick={() => { this.setGif() }}>
+                Go
           </button>
 
+            </div>
+
+            <div className="results-output d-flex flex-wrap justify-content-center align-items-center"></div>
+          </div>
         </div>
-
-        <div>Search Results: </div>
-
-        <div className="results-output"></div>
-      </div>
       </>
     );
   }
